@@ -17,6 +17,9 @@ var lib    = require('bower-files')();
  
 gulp.task('default', function () {
   gulp.src(lib.ext('js').files)
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('app/lib'));
 });
-
+gulp.task('default', function () {
+  gulp.src(lib.ext('css').files)
+    .pipe(gulp.dest('app/lib'));
+});
