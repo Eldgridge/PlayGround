@@ -6,8 +6,17 @@ gulp.task('webserver', function(){
     .pipe(webserver({
       host: '0.0.0.0',
       port: '8080',
-      path: '/',
+      path: 'app/',
       fallback: 'app/index.html'
     }));
+});
+
+var gulp   = require('gulp');
+
+var lib    = require('bower-files')();
+ 
+gulp.task('default', function () {
+  gulp.src(lib.ext('js').files)
+    .pipe(gulp.dest('public/js'));
 });
 
