@@ -7,7 +7,7 @@ gulp.task('webserver', function(){
       host: '0.0.0.0',
       port: '8080',
       path: '/',
-      fallback: 'index.html'
+      fallback: 'app/index.html'
     }));
 });
 
