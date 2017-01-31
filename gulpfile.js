@@ -11,15 +11,12 @@ gulp.task('webserver', function(){
     }));
 });
 
-var gulp   = require('gulp');
 
 var lib    = require('bower-files')();
- 
-gulp.task('default', function () {
-  gulp.src(lib.ext('js').files)
-    .pipe(gulp.dest('app/lib'));
-});
-gulp.task('default', function () {
-  gulp.src(lib.ext('css').files)
+
+
+var bower_files    = require('bower-files')();
+gulp.task('bower', function () {
+  gulp.src(lib.ext(['js', 'css']).files)
     .pipe(gulp.dest('app/lib'));
 });
