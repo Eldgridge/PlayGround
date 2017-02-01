@@ -1,22 +1,24 @@
-var gulp = require('gulp');
-var webserver = require('gulp-webserver');
+var gulp        = require('gulp');
+var browserSync = require('browser-sync').create();
+var sass        = require('gulp-sass');
 
-gulp.task('webserver', function(){
-  gulp.src('.')
-    .pipe(webserver({
-      host: '0.0.0.0',
-      port: '8080',
-      path: 'app/',
-      fallback: 'app/index.html'
-    }));
+// Static Server + watching scss/html files
+gulp.task('serve', ['sass'], function() {
+
+    browserSync.init({
+        server: "./app"
+    });
+
+    gulp.watch("app/scss/*.scss", ['sass']);
+    gulp.watch("app/*.html").on('change', browserSync.reload);
 });
 
-
-var lib    = require('bower-files')();
-
-
-var bower_files    = require('bower-files')();
-gulp.task('bower', function () {
-  gulp.src(lib.ext(['js', 'css']).files)
-    .pipe(gulp.dest('app/lib'));
+// Compile sass into CSS & auto-inject into browsers
+gulp.task('sass', function() {
+    return gulp.src("app/scss/*.scss")
+        .pipe(sass())
+        .pipe(gulp.dest("app/css"))
+        .pipe(browserSync.stream());
 });
+
+gulp.task('default', ['serve']);
